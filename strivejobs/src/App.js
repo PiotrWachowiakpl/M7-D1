@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import {BrowserRouter,Routes, Route} from "react-router-dom"
 import MySearch from './components/MySearch';
+import CompanySearchResults from './components/CompanySearchResults';
 
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
     <BrowserRouter>
     <Routes>    
       <Route exact path="/" element={<MySearch/>}/>
-      {/* <Route patr="/:companyId"={<SearchResults/>} */}
+      <Route exact path="/:companyName" element={<CompanySearchResults/>}/>
 </Routes>
     
     </BrowserRouter>

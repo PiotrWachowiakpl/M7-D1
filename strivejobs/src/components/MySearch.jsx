@@ -1,29 +1,50 @@
 import React from "react";
-import {Container, Row, Col, Form, FormControl} from "react-bootstrap"
-
+import { Container, Row, Col, Form } from "react-bootstrap";
+import uniqId from "uniqid"
+import Job from "./Job";
 
 export default class MySearch extends React.Component {
-state = {
-    query: ""
-}
+  state = {
+    query: "",
+    jobs: [],
+  };
 
+  enpoint = `https://strive-jobs-api.herokuapp.com/jobs?search=`;
 
-enpoint = `https://strive-jobs-api.herokuapp.com/jobs?search=`
-handleChange = (e) =>{
-    this.setState({query: e.target.value})
-}
-render(){
-    return(
-        <Container>
-            <Row>
-                <Col>
-                <Form>
-                    <Form.Control type="search" value={this.state.query} onChange={this.handleChange}/>
-                </Form>
-                </Col>
-            </Row>
-        </Container>
-    )
-}
+  handleChange = (e) => {
+    this.setState({ query: e.target.value });
+  };
 
+  handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch(this.enpoint + this.state.query + `&limit=10`);
+    if (!response.ok) {
+      console.log("error fetching");
+    }
+    const { data } = await response.json();
+    this.setState({ jobs: data });
+  };
+  render() {
+    return (
+      <Container>
+        <Row>
+          <Col xs={10} className="m-2">
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Control
+                type="search"
+                value={this.state.query}
+                onChange={this.handleChange}
+              />
+            </Form>
+          </Col>
+          <Col xs={10}>
+            {this.state.jobs.map(jobData => 
+             <Job key={uniqId()} data={jobData}/>
+            )}
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
 }
