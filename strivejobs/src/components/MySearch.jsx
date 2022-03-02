@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import uniqId from "uniqid"
-import Job from "./Job";
+import JobResult from "./JobResult";
 
 export default class MySearch extends React.Component {
   state = {
@@ -40,7 +40,7 @@ export default class MySearch extends React.Component {
           </Col>
           <Col xs={10}>
             {this.state.jobs.map(jobData => 
-             <Job key={uniqId()} data={jobData}/>
+             <JobResult key={uniqId()} data={jobData}/>
             )}
           </Col>
         </Row>
