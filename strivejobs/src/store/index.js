@@ -1,3 +1,3 @@
-import {configureStore} from "redux"
+import {createStore} from "redux"
 import mainReducer from "./reducers"
-export default configureStore()
+export default createStore(mainReducer)

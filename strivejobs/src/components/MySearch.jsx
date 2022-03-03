@@ -1,7 +1,9 @@
 import React from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
-import uniqId from "uniqid"
+import { Link } from "react-router-dom";
+import uniqId from "uniqid";
 import JobResult from "./JobResult";
+
 
 export default class MySearch extends React.Component {
   state = {
@@ -28,6 +30,10 @@ export default class MySearch extends React.Component {
   render() {
     return (
       <Container>
+        <Col xs={10}>
+          <h2>Jobs Search</h2>
+          <Link to="/favourites" className="btn btn-primary">FAV</Link>
+        </Col>
         <Row>
           <Col xs={10} className="m-2">
             <Form onSubmit={this.handleSubmit}>
@@ -39,9 +45,9 @@ export default class MySearch extends React.Component {
             </Form>
           </Col>
           <Col xs={10}>
-            {this.state.jobs.map(jobData => 
-             <JobResult key={uniqId()} data={jobData}/>
-            )}
+            {this.state.jobs.map((jobData) => (
+              <JobResult key={uniqId()} data={jobData} />
+            ))}
           </Col>
         </Row>
       </Container>
